@@ -3,6 +3,10 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
+def apikeyPropertiesFile = rootProject.file("apikey.properties")
+def apikeyProperties = new Properties()
+apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+
 android {
     compileSdk 32
 
@@ -14,6 +18,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "MOVIE_API_KEY", apikeyProperties['MOVIE_API_KEY'])
     }
 
     buildTypes {
@@ -29,7 +35,12 @@ android {
 }
 
 dependencies {
+    implementation 'com.squareup.retrofit2:converter-jackson:2.7.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.10.3'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.10.3'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.10.3'
 
+    implementation 'com.android.volley:volley:1.2.1'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
