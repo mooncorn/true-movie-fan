@@ -17,6 +17,13 @@
         android:theme="@style/Theme.TrueMovieFan"
         tools:targetApi="31">
         <activity
+            android:name=".CreateReviewActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".MovieActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity">

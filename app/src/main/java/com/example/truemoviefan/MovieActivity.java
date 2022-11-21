@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,7 @@ public class MovieActivity extends AppCompatActivity {
     TextView txtTitle, txtPlot;
     ImageView ivPoster;
     RecyclerView rvReviews;
+    Button btnPostReview, btnAddToWatchList;
 
     MovieApiClient movieClient;
     String imdbId;
@@ -50,6 +52,10 @@ public class MovieActivity extends AppCompatActivity {
         txtPlot = findViewById(R.id.txtPlot);
         ivPoster = findViewById(R.id.ivPoster);
         rvReviews = findViewById(R.id.rvReviews);
+        btnPostReview = findViewById(R.id.btnPostReview);
+        btnAddToWatchList = findViewById(R.id.btnAddToWatchList);
+        btnPostReview.setOnClickListener(view -> goToPostReviewActivity());
+        btnAddToWatchList.setOnClickListener(view -> addMovieToWatchList());
 
         movieClient = new MovieApiClient(this);
 
@@ -98,6 +104,16 @@ public class MovieActivity extends AppCompatActivity {
                         Log.w("TAG", "Error getting documents.", task.getException());
                     }
                 });
+    }
+
+    private void addMovieToWatchList() {
+        // TODO: implement this
+    }
+
+    private void goToPostReviewActivity() {
+        Intent i = new Intent(this, CreateReviewActivity.class);
+        i.putExtra(MovieActivity.IMDB_ID, imdbId);
+        startActivity(i);
     }
 
     private void displayMovie(Movie movie) {
