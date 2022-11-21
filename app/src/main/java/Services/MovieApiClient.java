@@ -1,6 +1,7 @@
 package Services;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -40,16 +41,19 @@ public class MovieApiClient {
                 Request.Method.GET, url, null,
                 response -> {
                     // Check if response is successful
-                    MovieApiErrorResponse res = MovieApiErrorResponse.deserialize(response.toString());
-                    if (!res.wasSuccessful()) {
-                        callback.error(res.getError());
+                    MovieApiErrorResponse errorResponse = MovieApiErrorResponse.deserialize(response.toString());
+                    if (errorResponse != null && !errorResponse.wasSuccessful()) {
+                        callback.error(errorResponse.getError());
+                        Log.w("MovieApiClient", errorResponse.getError());
                         return;
                     }
 
                     try {
                         callback.success(Movie.deserialize(response.toString()));
+                        Log.d("MovieApiClient", response.toString());
                     } catch (Exception e) {
                         callback.error("Could not map: " + response);
+                        Log.w("MovieApiClient", "Could not map: " + response);
                     }
                 },
                 error -> callback.error(error.getMessage())) {
