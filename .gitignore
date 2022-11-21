@@ -85,4 +85,4 @@ lint/tmp/
 # lint/reports/
 
 google-services.json
-apikeys.properties
+apikey.properties
