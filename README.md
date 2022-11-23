@@ -7,7 +7,9 @@
 In the project root directory, create a file called `apikey.properties` with this content:
 
 ```
-MOVIE_API_KEY=<your_access_key>
+MOVIE_API_KEY="<your_access_key>"
 ```
 
 2. Connect to Firebase.
+
+3. Use `Nexus 5 API 30` emulator.
