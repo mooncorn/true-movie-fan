@@ -1,4 +1,4 @@
-package Services;
+package Api;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,15 +9,19 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.truemoviefan.BuildConfig;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import Models.Movie;
-import Models.MovieApiErrorResponse;
+import Model.Movie;
+import Model.MovieApiErrorResponse;
 
 public class MovieApiClient {
 
@@ -26,6 +30,7 @@ public class MovieApiClient {
         public abstract void error(String message);
     }
 
+    public static final String TAG = "MovieApiClient";
     RequestQueue queue;
     String baseUrl = "https://movie-database-alternative.p.rapidapi.com/";
 
@@ -40,20 +45,29 @@ public class MovieApiClient {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET, url, null,
                 response -> {
-                    // Check if response is successful
-                    MovieApiErrorResponse errorResponse = MovieApiErrorResponse.deserialize(response.toString());
-                    if (errorResponse != null && !errorResponse.wasSuccessful()) {
-                        callback.error(errorResponse.getError());
-                        Log.w("MovieApiClient", errorResponse.getError());
-                        return;
-                    }
+                    ObjectMapper mapper = new ObjectMapper();
 
                     try {
-                        callback.success(Movie.deserialize(response.toString()));
-                        Log.d("MovieApiClient", response.toString());
+                        MovieApiErrorResponse errorResponse = mapper.readValue(response.toString(), MovieApiErrorResponse.class);
+
+                        if (!errorResponse.wasSuccessful()) {
+                            callback.error(errorResponse.getError());
+                            return;
+                        }
+
                     } catch (Exception e) {
-                        callback.error("Could not map: " + response);
-                        Log.w("MovieApiClient", "Could not map: " + response);
+                        Log.d(TAG, e.getMessage());
+                    }
+
+
+                    try {
+                        Movie movie = mapper.readValue(response.toString(), Movie.class);
+
+                        callback.success(movie);
+
+                    } catch (Exception e) {
+                        Log.d(TAG, e.getMessage());
+                        callback.error(e.getMessage());
                     }
                 },
                 error -> callback.error(error.getMessage())) {
@@ -67,7 +81,7 @@ public class MovieApiClient {
         queue.add(jsonObjectRequest);
     }
 
-    public void search(String term, MovieApiClientCallback<ArrayList<Movie>> callback) {
+    public void search(String term, MovieApiClientCallback<List<Movie>> callback) {
         try {
             String encodedUrl = URLEncoder.encode(term, StandardCharsets.UTF_8.toString());
             String url = baseUrl + "?s=" + encodedUrl + "&r=json&page=1";
@@ -75,17 +89,29 @@ public class MovieApiClient {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.GET, url, null,
                     response -> {
-                        // Check if response is successful
-                        MovieApiErrorResponse res = MovieApiErrorResponse.deserialize(response.toString());
-                        if (!res.wasSuccessful()) {
-                            callback.error(res.getError());
-                            return;
-                        }
+                        ObjectMapper mapper = new ObjectMapper();
 
                         try {
-                            callback.success(Movie.deserializeMany(response.toString()));
+                            MovieApiErrorResponse errorResponse = mapper.readValue(response.toString(), MovieApiErrorResponse.class);
+
+                            if (!errorResponse.wasSuccessful()) {
+                                callback.error(errorResponse.getError());
+                                return;
+                            }
+
                         } catch (Exception e) {
-                            callback.error("Could not map: " + response);
+                            Log.d(TAG, e.getMessage());
+                        }
+
+
+                        try {
+                            List<Movie> movieList = mapper.readValue(response.toString(), new TypeReference<List<Movie>>() {});
+
+                            callback.success(movieList);
+
+                        } catch (Exception e) {
+                            Log.d(TAG, e.getMessage());
+                            callback.error(e.getMessage());
                         }
                     },
                     error -> callback.error(error.getMessage())) {

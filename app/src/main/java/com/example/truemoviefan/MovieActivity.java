@@ -18,9 +18,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import Models.Movie;
-import Models.Review;
-import Services.MovieApiClient;
+import Model.Movie;
+import Model.Review;
+import Api.MovieApiClient;
 
 /**
  * Displays information of a movie. IMDB ID is received from intent.

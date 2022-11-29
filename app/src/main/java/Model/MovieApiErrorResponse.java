@@ -1,4 +1,4 @@
-package Models;
+package Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,15 +21,4 @@ public class MovieApiErrorResponse {
     }
 
     public boolean wasSuccessful() { return response; }
-
-    public static MovieApiErrorResponse deserialize(String json) {
-        ObjectMapper mapper = new ObjectMapper();
-
-        try {
-            return mapper.readValue(json, MovieApiErrorResponse.class);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 }

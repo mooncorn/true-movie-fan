@@ -1,4 +1,4 @@
-package Models;
+package Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -81,31 +81,5 @@ public class Movie {
                 ", plot='" + plot + '\'' +
                 ", poster='" + poster + '\'' +
                 '}';
-    }
-
-    public static Movie deserialize(String json) {
-        ObjectMapper mapper = new ObjectMapper();
-
-        try {
-            return mapper.readValue(json, Movie.class);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public static ArrayList<Movie> deserializeMany(String json) {
-        int start = json.indexOf("[");
-        int end = json.indexOf("]");
-        String jsonArray = json.substring(start, end + 1);
-
-        ObjectMapper mapper = new ObjectMapper();
-
-        try {
-            return mapper.readValue(jsonArray, new TypeReference<ArrayList<Movie>>(){});
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 }
