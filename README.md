@@ -13,3 +13,5 @@ MOVIE_API_KEY="<your_access_key>"
 2. Connect to Firebase.
 
 3. Use `Nexus 5 API 30` emulator.
+
+4.
