@@ -14,4 +14,4 @@ MOVIE_API_KEY="<your_access_key>"
 
 3. Use `Nexus 5 API 30` emulator.
 
-4.
+4.   

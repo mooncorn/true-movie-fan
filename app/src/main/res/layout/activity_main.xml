@@ -1,31 +1,289 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btnMovie"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/black"
+        app:contentInsetStart="0dp">
+
+        <RelativeLayout
+            android:layout_width="70dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/logo" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="280dp"
+            android:layout_height="wrap_content">
+
+            <SearchView
+                android:id="@+id/svSearchBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="9dp"
+                android:layout_marginBottom="9dp"
+                android:background="@drawable/search_view_style"
+                android:layoutDirection="rtl" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="7dp">
+
+            <ImageView
+                android:id="@+id/ivUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/profile_icon"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentTop="true" />
+
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Movie"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@color/black"
+        android:layout_below="@id/toolbar">
 
-    <EditText
-        android:id="@+id/etMovieId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:ems="10"
-        android:hint="Movie ID"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/btnMovie"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:shrinkColumns="*"
+            android:stretchColumns="*">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_span="2"
+                    android:background="@color/black">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        app:srcCompat= "@drawable/title_main_activity" />
+
+                </RelativeLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivMovie1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="230dp"
+                        app:srcCompat="@drawable/no_image" />
+
+                    <TextView
+                        android:id="@+id/tvTitleMovie1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="tt0499549"
+                        android:layout_below="@id/ivMovie1"
+                        style="@style/StyleTitleMovie"/>
+
+                    <TextView
+                        android:id="@+id/tvRatingMovie1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10"
+                        android:layout_below="@id/tvTitleMovie1"
+                        style="@style/StyleRatingMovie"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivMovie2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="230dp"
+                        app:srcCompat="@drawable/no_image" />
+
+                    <TextView
+                        android:id="@+id/tvTitleMovie2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Black Panther: Wakanda Forever (2022)"
+                        android:layout_below="@id/ivMovie2"
+                        style="@style/StyleTitleMovie"/>
+
+                    <TextView
+                        android:id="@+id/tvRatingMovie2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="18"
+                        android:layout_below="@id/tvTitleMovie2"
+                        style="@style/StyleRatingMovie"/>
+
+                </RelativeLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="20dp">
+
+                <RelativeLayout
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivMovie3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="230dp"
+                        app:srcCompat="@drawable/no_image" />
+
+                    <TextView
+                        android:id="@+id/tvTitleMovie3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Parasite (2019)"
+                        android:layout_below="@id/ivMovie3"
+                        style="@style/StyleTitleMovie"/>
+
+                    <TextView
+                        android:id="@+id/tvRatingMovie3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="148"
+                        android:layout_below="@id/tvTitleMovie3"
+                        style="@style/StyleRatingMovie"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivMovie4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="230dp"
+                        app:srcCompat="@drawable/no_image" />
+
+                    <TextView
+                        android:id="@+id/tvTitleMovie4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="The School of Good and Evil (2022)"
+                        android:layout_below="@id/ivMovie4"
+                        style="@style/StyleTitleMovie"/>
+
+                    <TextView
+                        android:id="@+id/tvRatingMovie4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="8"
+                        android:layout_below="@id/tvTitleMovie4"
+                        style="@style/StyleRatingMovie"/>
+
+                </RelativeLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp">
+
+                <RelativeLayout
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivMovie5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="230dp"
+                        app:srcCompat="@drawable/no_image" />
+
+                    <TextView
+                        android:id="@+id/tvTitleMovie5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Parasite (2019)"
+                        android:layout_below="@id/ivMovie5"
+                        style="@style/StyleTitleMovie"/>
+
+                    <TextView
+                        android:id="@+id/tvRatingMovie5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="148"
+                        android:layout_below="@id/tvTitleMovie5"
+                        style="@style/StyleRatingMovie"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivMovie6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="230dp"
+                        app:srcCompat="@drawable/no_image" />
+
+                    <TextView
+                        android:id="@+id/tvTitleMovie6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="The School of Good and Evil (2022)"
+                        android:layout_below="@id/ivMovie6"
+                        style="@style/StyleTitleMovie"/>
+
+                    <TextView
+                        android:id="@+id/tvRatingMovie6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="8"
+                        android:layout_below="@id/tvTitleMovie6"
+                        style="@style/StyleRatingMovie"/>
+
+                </RelativeLayout>
+
+            </TableRow>
+
+        </TableLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>
