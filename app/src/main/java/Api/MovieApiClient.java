@@ -91,8 +91,13 @@ public class MovieApiClient {
                     response -> {
                         ObjectMapper mapper = new ObjectMapper();
 
+                        String json = response.toString();
+                        int start = json.indexOf("[");
+                        int end = json.indexOf("]");
+                        String jsonArray = json.substring(start, end + 1);
+
                         try {
-                            MovieApiErrorResponse errorResponse = mapper.readValue(response.toString(), MovieApiErrorResponse.class);
+                            MovieApiErrorResponse errorResponse = mapper.readValue(jsonArray, MovieApiErrorResponse.class);
 
                             if (!errorResponse.wasSuccessful()) {
                                 callback.error(errorResponse.getError());
@@ -105,7 +110,7 @@ public class MovieApiClient {
 
 
                         try {
-                            List<Movie> movieList = mapper.readValue(response.toString(), new TypeReference<List<Movie>>() {});
+                            List<Movie> movieList = mapper.readValue(jsonArray, new TypeReference<List<Movie>>() {});
 
                             callback.success(movieList);
 

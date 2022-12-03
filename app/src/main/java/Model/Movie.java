@@ -14,7 +14,7 @@ public class Movie {
     @JsonProperty("Title")
     private String title;
     @JsonProperty("Year")
-    private int year;
+    private String year;
     @JsonProperty("Plot")
     private String plot;
     @JsonProperty("Poster")
@@ -24,7 +24,7 @@ public class Movie {
 
     }
 
-    public Movie(String imdbID, String title, int year, String plot, String poster) {
+    public Movie(String imdbID, String title, String year, String plot, String poster) {
         this.imdbID = imdbID;
         this.title = title;
         this.year = year;
@@ -40,11 +40,11 @@ public class Movie {
         this.title = title;
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
