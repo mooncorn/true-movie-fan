@@ -11,26 +11,26 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/black"
-        app:contentInsetStart="0dp">
+        app:contentInsetStart="10dp">
 
         <RelativeLayout
-            android:layout_width="70dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="70dp"
+                android:layout_height="55dp"
                 android:src="@drawable/logo" />
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="280dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <SearchView
                 android:id="@+id/svSearchBar"
-                android:layout_width="match_parent"
+                android:layout_width="220dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="9dp"
@@ -41,14 +41,14 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="7dp">
 
             <ImageView
                 android:id="@+id/ivUser"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:background="@drawable/profile_icon"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"

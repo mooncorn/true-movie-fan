@@ -1,19 +1,20 @@
 package com.example.truemoviefan;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 import Api.MovieApiClient;
 import Model.Movie;
@@ -33,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     MovieApiClient movieClient;
     String imdbID;
+
+    SearchView svSearchBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         for (int i=0 ; i < posters.length ; i++) {
             listOfImageViews[i].setOnClickListener(this);
         }
+
+        // Search View
+        svSearchBar = findViewById(R.id.svSearchBar);
+        svSearchBar.setOnClickListener(this);
     }
 
     private void loadFeedPage() {
@@ -118,12 +125,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.ivMovie6:
                 callMovieActivity(ImdbIds[5]);
                 break;
+            case R.id.svSearchBar:
+                callSearchView();
+                break;
         }
     }
 
     private void callMovieActivity(String imdbID) {
         Intent i = new Intent(this, MovieActivity.class);
         i.putExtra(MovieActivity.IMDB_ID, imdbID);
+        startActivity(i);
+    }
+
+    private void callSearchView() {
+        Intent i = new Intent(this, SearchMovie.class);
         startActivity(i);
     }
 }
