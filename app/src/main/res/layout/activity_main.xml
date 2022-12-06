@@ -4,292 +4,79 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/black">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/black"
-        app:contentInsetStart="0dp">
+        app:contentInsetStart="10dp">
 
         <RelativeLayout
-            android:layout_width="70dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="70dp"
+                android:layout_height="55dp"
                 android:src="@drawable/logo" />
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="280dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <SearchView
-                android:id="@+id/svSearchBar"
-                android:layout_width="match_parent"
+            <EditText
+                android:id="@+id/etSearchBar"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="9dp"
-                android:layout_marginBottom="9dp"
                 android:background="@drawable/search_view_style"
-                android:layoutDirection="rtl" />
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:padding="10dp" />
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btnSearchBar"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="Search"
+                android:textSize="10dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="7dp">
 
             <ImageView
                 android:id="@+id/ivUser"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/profile_icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentTop="true" />
+                android:background="@drawable/profile_icon" />
 
         </RelativeLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/black"
-        android:layout_below="@id/toolbar">
-
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:shrinkColumns="*"
-            android:stretchColumns="*">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_span="2"
-                    android:background="@color/black">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:layout_marginBottom="3dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        app:srcCompat= "@drawable/title_main_activity" />
-
-                </RelativeLayout>
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <RelativeLayout
-                    android:layout_width="170dp"
-                    android:layout_height="wrap_content" >
-
-                    <ImageView
-                        android:id="@+id/ivMovie1"
-                        android:layout_width="180dp"
-                        android:layout_height="230dp"
-                        android:layout_centerHorizontal="true"
-                        app:srcCompat="@drawable/no_image" />
-
-                    <TextView
-                        android:id="@+id/tvTitleMovie1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/movieTitle1"
-                        android:layout_below="@id/ivMovie1"
-                        style="@style/StyleTitleMovie"/>
-
-                    <TextView
-                        android:id="@+id/tvRatingMovie1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/movieRating1"
-                        android:layout_below="@id/tvTitleMovie1"
-                        style="@style/StyleRatingMovie"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="170dp"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/ivMovie2"
-                        android:layout_width="180dp"
-                        android:layout_height="230dp"
-                        android:layout_centerHorizontal="true"
-                        app:srcCompat="@drawable/no_image" />
-
-                    <TextView
-                        android:id="@+id/tvTitleMovie2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/movieTitle2"
-                        android:layout_below="@id/ivMovie2"
-                        style="@style/StyleTitleMovie"/>
-
-                    <TextView
-                        android:id="@+id/tvRatingMovie2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/movieRating2"
-                        android:layout_below="@id/tvTitleMovie2"
-                        style="@style/StyleRatingMovie"/>
-
-                </RelativeLayout>
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="20dp">
-
-                <RelativeLayout
-                    android:layout_width="170dp"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/ivMovie3"
-                        android:layout_width="180dp"
-                        android:layout_height="230dp"
-                        android:layout_centerHorizontal="true"
-                        app:srcCompat="@drawable/no_image" />
-
-                    <TextView
-                        android:id="@+id/tvTitleMovie3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/movieTitle3"
-                        android:layout_below="@id/ivMovie3"
-                        style="@style/StyleTitleMovie"/>
-
-                    <TextView
-                        android:id="@+id/tvRatingMovie3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/movieRating3"
-                        android:layout_below="@id/tvTitleMovie3"
-                        style="@style/StyleRatingMovie"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="170dp"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/ivMovie4"
-                        android:layout_width="180dp"
-                        android:layout_height="230dp"
-                        android:layout_centerHorizontal="true"
-                        app:srcCompat="@drawable/no_image" />
-
-                    <TextView
-                        android:id="@+id/tvTitleMovie4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/movieTitle4"
-                        android:layout_below="@id/ivMovie4"
-                        style="@style/StyleTitleMovie"/>
-
-                    <TextView
-                        android:id="@+id/tvRatingMovie4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/movieRating4"
-                        android:layout_below="@id/tvTitleMovie4"
-                        style="@style/StyleRatingMovie"/>
-
-                </RelativeLayout>
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp">
-
-                <RelativeLayout
-                    android:layout_width="170dp"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/ivMovie5"
-                        android:layout_width="180dp"
-                        android:layout_height="230dp"
-                        android:layout_centerHorizontal="true"
-                        app:srcCompat="@drawable/no_image" />
-
-                    <TextView
-                        android:id="@+id/tvTitleMovie5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/movieTitle5"
-                        android:layout_below="@id/ivMovie5"
-                        style="@style/StyleTitleMovie"/>
-
-                    <TextView
-                        android:id="@+id/tvRatingMovie5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/movieRating5"
-                        android:layout_below="@id/tvTitleMovie5"
-                        style="@style/StyleRatingMovie"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="170dp"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/ivMovie6"
-                        android:layout_width="180dp"
-                        android:layout_height="230dp"
-                        android:layout_centerHorizontal="true"
-                        app:srcCompat="@drawable/no_image" />
-
-                    <TextView
-                        android:id="@+id/tvTitleMovie6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/movieTitle6"
-                        android:layout_below="@id/ivMovie6"
-                        style="@style/StyleTitleMovie"/>
-
-                    <TextView
-                        android:id="@+id/tvRatingMovie6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/movieRating6"
-                        android:layout_below="@id/tvTitleMovie6"
-                        style="@style/StyleRatingMovie"/>
-
-                </RelativeLayout>
-
-            </TableRow>
-
-        </TableLayout>
-
-    </androidx.core.widget.NestedScrollView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="55dp"
+        android:id="@+id/rvCovers"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

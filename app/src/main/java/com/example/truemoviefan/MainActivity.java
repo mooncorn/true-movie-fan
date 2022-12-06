@@ -1,38 +1,37 @@
 package com.example.truemoviefan;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.Button;
+import android.widget.SearchView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
+import java.util.ArrayList;
+import java.util.List;
 
 import Api.MovieApiClient;
 import Model.Movie;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
 
-    ImageView[] listOfImageViews;
-    int posters[] = {R.id.ivMovie1, R.id.ivMovie2, R.id.ivMovie3, R.id.ivMovie4, R.id.ivMovie5, R.id.ivMovie6};
-
-    TextView[] listOfTitles;
-    int titles[] = {R.id.tvTitleMovie1, R.id.tvTitleMovie2, R.id.tvTitleMovie3, R.id.tvTitleMovie4, R.id.tvTitleMovie5, R.id.tvTitleMovie6};
-
-    TextView[] listOfRatings;
-    int ratings[] = {R.id.tvRatingMovie1, R.id.tvRatingMovie2, R.id.tvRatingMovie3, R.id.tvRatingMovie4, R.id.tvRatingMovie5, R.id.tvRatingMovie6};
-
-    String ImdbIds[] = {"tt6443346","tt13433812", "tt21195490", "tt13443470", "tt9114286", "tt0468569"};
+    String movieIds[] = {"tt6443346","tt13433812", "tt21195490", "tt13443470", "tt9114286", "tt0468569"};
 
     MovieApiClient movieClient;
-    String imdbID;
+
+    TextView tvSearchBar;
+    Button btnSearchBar;
+
+    RecyclerView rvCovers;
+
+    List<Movie> movies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,45 +41,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void initialize() {
-        listOfImageViews = new ImageView[posters.length];
-        for (int i=0 ; i < posters.length ; i++) {
-            listOfImageViews[i] = findViewById(posters[i]);
-        }
+        tvSearchBar = findViewById(R.id.etSearchBar);
+        btnSearchBar = findViewById(R.id.btnSearchBar);
+        rvCovers = findViewById(R.id.rvCovers);
+        btnSearchBar.setOnClickListener(view -> {
+            fetchSearchMovies();
+        });
 
-        listOfTitles = new TextView[titles.length];
-        for (int i=0 ; i < titles.length ; i++) {
-            listOfTitles[i] = findViewById(titles[i]);
-        }
-
-        listOfRatings = new TextView[ratings.length];
-        for (int i=0 ; i < ratings.length ; i++) {
-            listOfRatings[i] = findViewById(ratings[i]);
-        }
-
-        loadFeedPage();
-
-        // Set OnClickListener
-        for (int i=0 ; i < posters.length ; i++) {
-            listOfImageViews[i].setOnClickListener(this);
-        }
+        fetchFeedMovies();
     }
 
-    private void loadFeedPage() {
+    private void fetchFeedMovies() {
+        movies = new ArrayList<>();
         movieClient = new MovieApiClient(this);
 
         // Fetch information using the ImdbId
-        for (int i=0 ; i < ImdbIds.length ; i++) {
-            ImageView ivMovie = listOfImageViews[i];
-            TextView tvTitleMovie = listOfTitles[i];
-            TextView tvRating = listOfRatings[i];
-
-            movieClient.findMovie(ImdbIds[i], new MovieApiClient.MovieApiClientCallback<Movie>() {
+        for (int i = 0; i < movieIds.length ; i++) {
+            movieClient.findMovie(movieIds[i], new MovieApiClient.MovieApiClientCallback<Movie>() {
                 @Override
                 public void success(Movie data) {
-                    imdbID = data.getImdbID();
-                    Picasso.with(MainActivity.this).load(data.getPoster()).into(ivMovie);
-                    tvTitleMovie.setText(data.getTitle() + " (" + data.getYear() + ")");
-                    tvRating.setText(data.getYear());
+                    movies.add(data);
                 }
 
                 @Override
@@ -94,36 +74,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
         }
+
+        CoversAdapter adapter = new CoversAdapter(movies);
+        rvCovers.setAdapter(adapter);
+        rvCovers.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
     }
 
-    @Override
-    public void onClick(View view) {
-        int id = view.getId();
-        switch (id) {
-            case R.id.ivMovie1:
-                callMovieActivity(ImdbIds[0]);
-                break;
-            case R.id.ivMovie2:
-                callMovieActivity(ImdbIds[1]);
-                break;
-            case R.id.ivMovie3:
-                callMovieActivity(ImdbIds[2]);
-                break;
-            case R.id.ivMovie4:
-                callMovieActivity(ImdbIds[3]);
-                break;
-            case R.id.ivMovie5:
-                callMovieActivity(ImdbIds[4]);
-                break;
-            case R.id.ivMovie6:
-                callMovieActivity(ImdbIds[5]);
-                break;
-        }
-    }
+    private void fetchSearchMovies() {
+        movieClient = new MovieApiClient(this);
 
-    private void callMovieActivity(String imdbID) {
-        Intent i = new Intent(this, MovieActivity.class);
-        i.putExtra(MovieActivity.IMDB_ID, imdbID);
-        startActivity(i);
+        movieClient.search(tvSearchBar.getText().toString(), new MovieApiClient.MovieApiClientCallback<List<Movie>>() {
+            @Override
+            public void success(List<Movie> data) {
+                CoversAdapter adapter = new CoversAdapter(data);
+                rvCovers.setAdapter(adapter);
+                rvCovers.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
+            }
+
+            @Override
+            public void error(String message) {
+                // TODO: implement this
+            }
+        });
     }
 }
