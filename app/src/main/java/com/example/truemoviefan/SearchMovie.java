@@ -70,7 +70,7 @@ public class SearchMovie extends AppCompatActivity {
     }
 
     private void displayMovie(List<Movie> data) {
-        SearchAdapter adapter = new SearchAdapter(data);
+        CoversAdapter adapter = new CoversAdapter(data);
         rvMovies.setAdapter(adapter);
         rvMovies.setLayoutManager(new LinearLayoutManager(SearchMovie.this));
     }
