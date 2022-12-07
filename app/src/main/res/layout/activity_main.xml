@@ -1,74 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@color/black">
+    android:background="@color/white">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/black"
-        app:contentInsetStart="10dp">
+        app:contentInsetStart="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/rvCovers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <RelativeLayout
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="60dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="left"
+            android:src="@drawable/logo" />
+
+        <EditText
+            android:id="@+id/etSearchBar"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:padding="8dp"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/search_view_style"
+            android:layout_gravity="center"
+            android:drawableRight="@drawable/ic_search"/>
 
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_height="55dp"
-                android:src="@drawable/logo" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/etSearchBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/search_view_style"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:padding="10dp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/btnSearchBar"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:text="Search"
-                android:textSize="10dp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="7dp">
-
-            <ImageView
-                android:id="@+id/ivUser"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:background="@drawable/profile_icon" />
-
-        </RelativeLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivUser"
+            android:layout_width="60dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="right"
+            android:src="@drawable/profile_icon" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -79,4 +55,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,10 +9,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
     MovieApiClient movieClient;
 
     TextView tvSearchBar;
-    Button btnSearchBar;
+
+    ImageView ivLogo, ivUser;
 
     RecyclerView rvCovers;
 
@@ -42,10 +46,23 @@ public class MainActivity extends AppCompatActivity {
 
     public void initialize() {
         tvSearchBar = findViewById(R.id.etSearchBar);
-        btnSearchBar = findViewById(R.id.btnSearchBar);
         rvCovers = findViewById(R.id.rvCovers);
-        btnSearchBar.setOnClickListener(view -> {
+        ivLogo = findViewById(R.id.ivLogo);
+        ivUser = findViewById(R.id.ivUser);
+
+        tvSearchBar.setOnClickListener(view -> {
             fetchSearchMovies();
+        });
+
+        ivLogo.setOnClickListener(view -> {
+            CoversAdapter adapter = new CoversAdapter(movies);
+            rvCovers.setAdapter(adapter);
+            rvCovers.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
+        });
+
+        ivUser.setOnClickListener(view -> {
+            Intent i = new Intent(this, LoginActivity.class);
+            startActivity(i);
         });
 
         fetchFeedMovies();
@@ -93,7 +110,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void error(String message) {
-                // TODO: implement this
+                // TODO: App crashing when records are not found besides implementing this method
+/*                if (message != null) {
+                    Toast.makeText(MainActivity.this, "No movie was found under the description provided", Toast.LENGTH_SHORT).show();
+                }*/
             }
         });
     }
