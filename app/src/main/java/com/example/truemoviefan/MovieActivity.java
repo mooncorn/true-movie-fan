@@ -1,6 +1,7 @@
 package com.example.truemoviefan;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -56,6 +57,12 @@ public class MovieActivity extends AppCompatActivity {
         btnAddToWatchList = findViewById(R.id.btnAddToWatchList);
         btnPostReview.setOnClickListener(view -> goToPostReviewActivity());
         btnAddToWatchList.setOnClickListener(view -> addMovieToWatchList());
+
+        ivPoster.setOnClickListener(view -> {
+            // TODO: Finish implementing the return to main activity
+            Intent i = new Intent(MovieActivity.this, MainActivity.class);
+            startActivity(i);
+        });
 
         movieClient = new MovieApiClient(this);
 
