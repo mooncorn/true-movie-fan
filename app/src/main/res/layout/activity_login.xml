@@ -66,14 +66,14 @@
         />
 
     <EditText
-        android:id="@+id/edUserName"
+        android:id="@+id/edEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="14"
         android:inputType="textPersonName"
-        android:hint="Username"
-        android:drawableStart="@drawable/ic_baseline_person_24"
-        android:drawableLeft="@drawable/ic_baseline_person_24"
+        android:hint="Email"
+        android:drawableStart="@drawable/ic_baseline_email_24"
+        android:drawableLeft="@drawable/ic_baseline_email_24"
         android:drawablePadding="5dp"
         android:background="@drawable/rounded_edittext"
         app:layout_constraintTop_toBottomOf="@id/lblSignin"
@@ -91,8 +91,8 @@
         android:inputType="textPassword"
         android:hint="Password"
         android:background="@drawable/rounded_edittext"
-        app:layout_constraintStart_toStartOf="@id/edUserName"
-        app:layout_constraintTop_toBottomOf="@id/edUserName"
+        app:layout_constraintStart_toStartOf="@id/edEmail"
+        app:layout_constraintTop_toBottomOf="@id/edEmail"
         android:layout_marginTop="10dp"
         android:drawableStart="@drawable/ic_baseline_vpn_key_24"
         android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
@@ -131,7 +131,7 @@
         android:layout_marginTop="10dp"/>
 
     <Button
-        android:id="@+id/btnRigister"
+        android:id="@+id/btnRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Register"

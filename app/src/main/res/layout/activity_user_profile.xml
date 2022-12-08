@@ -133,7 +133,7 @@
         android:layout_marginTop="12dp" />
 
     <EditText
-        android:id="@+id/edEmail"
+        android:id="@+id/edUserEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="17"
@@ -152,7 +152,7 @@
         android:text="Password"
         android:textColor="#ffffff"
         android:textSize="25sp"
-        app:layout_constraintTop_toBottomOf="@id/edEmail"
+        app:layout_constraintTop_toBottomOf="@id/edUserEmail"
         app:layout_constraintStart_toStartOf="@id/lblFirstName"
         android:layout_marginTop="12dp" />
 
