@@ -10,6 +10,7 @@ import android.util.Log;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,10 +28,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     EditText edUserNameSecondAct, edEmailSecondAct, edPasswordSecondAct, edConfirmPasswordSecondAct;
     Button btnSignUp, btnGobackToLogin;
+    ImageView imLogoSecondAct;
     FirebaseAuth fAuth;
-
-    String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
-
     String userId;
     FirebaseFirestore db;
     DocumentReference documentReference;
@@ -49,6 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
         edConfirmPasswordSecondAct = findViewById(R.id.edConfirmPasswordSecondAct);
         btnSignUp = findViewById(R.id.btnSignUp);
         btnGobackToLogin = findViewById(R.id.btnGobackToLogin);
+        imLogoSecondAct = findViewById(R.id.imLogoSecondAct);
 
         //Firebase
         fAuth = FirebaseAuth.getInstance();
@@ -62,10 +62,9 @@ public class RegisterActivity extends AppCompatActivity {
             gotoLoginPage();
         });
 
-        if(fAuth.getCurrentUser() != null){
+        imLogoSecondAct.setOnClickListener(view -> {
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
-            finish();
-        }
+        });
     }
 
     private void gotoLoginPage() {
@@ -74,12 +73,12 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registerNewUser() {
-        String name = edUserNameSecondAct.getText().toString().toString();
+        String userName = edUserNameSecondAct.getText().toString().toString();
         String email = edEmailSecondAct.getText().toString().trim();
         String passw = edPasswordSecondAct.getText().toString().trim();
         String confirmPassw = edConfirmPasswordSecondAct.getText().toString().trim();
 
-        if (TextUtils.isEmpty(name)){
+        if (TextUtils.isEmpty(userName)){
             edUserNameSecondAct.setError("Username is required!");
             return;
         }
@@ -128,11 +127,12 @@ public class RegisterActivity extends AppCompatActivity {
                     documentReference = db.collection("user").document(userId);
 
                     Map<String, Object> newUser = new HashMap<>();
-                    newUser.put("nickname", "");
-                    newUser.put("name", name);
+                    newUser.put("username",userName);
+                    newUser.put("firstname", userName);
+                    newUser.put("lastname", "");
                     newUser.put("email", email);
                     newUser.put("password", passw);
-                    newUser.put("avatar", "");
+                    newUser.put("photo", "");
 
                     // Add a new document with the UUID that was generated with fAuth 
                     documentReference.set(newUser);
@@ -146,5 +146,4 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
-
 }

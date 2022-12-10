@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserProfileActivity"
+    tools:context=".EditUserProfileActivity"
     android:background="#141414">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imAccount"
+        android:id="@+id/imEditAccount"
         android:layout_width="110dp"
         android:layout_height="110dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,12 +41,12 @@
         android:textColor="#ffffff"
         android:textSize="25sp"
         app:layout_constraintTop_toBottomOf="@id/lblUserProfile"
-        app:layout_constraintLeft_toRightOf="@id/imAccount"
+        app:layout_constraintLeft_toRightOf="@id/imEditAccount"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="10dp"/>
 
     <EditText
-        android:id="@+id/edUserName"
+        android:id="@+id/edEditUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="8"
@@ -58,6 +58,20 @@
         app:layout_constraintStart_toStartOf="@id/lblUserName"
         android:drawableTint="#AFA9B5" />
 
+    <Button
+        android:id="@+id/btnEditIm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit"
+        android:textSize="18sp"
+        android:background="?android:attr/selectableItemBackground"
+        android:textColor="#ffffff"
+        android:textAllCaps="false"
+        app:layout_constraintTop_toBottomOf="@id/imEditAccount"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="40dp"
+        />
+
     <TextView
         android:id="@+id/lblFirstName"
         android:layout_width="wrap_content"
@@ -65,13 +79,13 @@
         android:text="First Name"
         android:textColor="#ffffff"
         android:textSize="25sp"
-        app:layout_constraintTop_toBottomOf="@id/edUserName"
+        app:layout_constraintTop_toBottomOf="@id/btnEditIm"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="15dp" />
+        android:layout_marginTop="10dp" />
 
     <EditText
-        android:id="@+id/edFirstName"
+        android:id="@+id/edEditFirstName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="17"
@@ -90,12 +104,12 @@
         android:text="Last Name"
         android:textColor="#ffffff"
         android:textSize="25sp"
-        app:layout_constraintTop_toBottomOf="@id/edFirstName"
+        app:layout_constraintTop_toBottomOf="@id/edEditFirstName"
         app:layout_constraintStart_toStartOf="@id/lblFirstName"
         android:layout_marginTop="12dp" />
 
     <EditText
-        android:id="@+id/edLastName"
+        android:id="@+id/edEditLastName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="17"
@@ -114,12 +128,12 @@
         android:text="Email"
         android:textColor="#ffffff"
         android:textSize="25sp"
-        app:layout_constraintTop_toBottomOf="@id/edLastName"
+        app:layout_constraintTop_toBottomOf="@id/edEditLastName"
         app:layout_constraintStart_toStartOf="@id/lblFirstName"
         android:layout_marginTop="12dp" />
 
     <EditText
-        android:id="@+id/edUserEmail"
+        android:id="@+id/edEditUserEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="17"
@@ -138,7 +152,7 @@
         android:text="Password"
         android:textColor="#ffffff"
         android:textSize="25sp"
-        app:layout_constraintTop_toBottomOf="@id/edUserEmail"
+        app:layout_constraintTop_toBottomOf="@id/edEditUserEmail"
         app:layout_constraintStart_toStartOf="@id/lblFirstName"
         android:layout_marginTop="12dp" />
 
@@ -152,22 +166,20 @@
         app:layout_constraintStart_toStartOf="@id/lblFirstName">
 
         <EditText
-            android:id="@+id/edPassword"
+            android:id="@+id/edEditPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="17"
             android:inputType="textPassword"
             android:background="@drawable/rounded_edittext"
             android:drawableTint="#AFA9B5" />
-
     </com.google.android.material.textfield.TextInputLayout>
 
-
     <Button
-        android:id="@+id/btnEditUser"
+        android:id="@+id/btnCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit"
+        android:text="Cancel"
         android:textAllCaps="false"
         android:textSize="25sp"
         android:textStyle="bold"
@@ -178,10 +190,10 @@
         android:textColor="#ffffff"/>
 
     <Button
-        android:id="@+id/btnLogout"
+        android:id="@+id/btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Logout"
+        android:text="Save"
         android:textAllCaps="false"
         android:textSize="25sp"
         android:textStyle="bold"

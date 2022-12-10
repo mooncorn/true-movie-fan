@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
     List<Movie> movies;
 
+    FirebaseAuth fAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
         ivLogo = findViewById(R.id.ivLogo);
         ivUser = findViewById(R.id.ivUser);
 
+        fAuth = FirebaseAuth.getInstance();
+
         tvSearchBar.setOnClickListener(view -> {
             fetchSearchMovies();
         });
@@ -63,12 +67,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ivUser.setOnClickListener(view -> {
-            Intent i = new Intent(this, LoginActivity.class);
-            startActivity(i);
+            if(fAuth.getCurrentUser() != null){
+                startActivity(new Intent(getApplicationContext(),UserProfileActivity.class));
+                finish();
+            }else {
+                Intent i = new Intent(this, LoginActivity.class);
+                startActivity(i);
+            }
         });
 
         fetchFeedMovies();
 
+        //logout
         //FirebaseAuth.getInstance().signOut();
     }
 
