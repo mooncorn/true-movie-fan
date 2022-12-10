@@ -91,13 +91,22 @@ public class MovieApiClient {
                     response -> {
                         ObjectMapper mapper = new ObjectMapper();
 
-                        String json = response.toString();
-                        int start = json.indexOf("[");
-                        int end = json.indexOf("]");
-                        String jsonArray = json.substring(start, end + 1);
+                        String jsonArray = "";
 
                         try {
-                            MovieApiErrorResponse errorResponse = mapper.readValue(jsonArray, MovieApiErrorResponse.class);
+                            MovieApiErrorResponse errorResponse = mapper.readValue(response.toString(), MovieApiErrorResponse.class);
+
+                            if (!errorResponse.wasSuccessful()) {
+                                callback.error(errorResponse.getError());
+                                return;
+                            }
+
+                            String json = response.toString();
+                            int start = json.indexOf("[");
+                            int end = json.indexOf("]");
+                            jsonArray = json.substring(start, end + 1);
+
+                            errorResponse = mapper.readValue(jsonArray, MovieApiErrorResponse.class);
 
                             if (!errorResponse.wasSuccessful()) {
                                 callback.error(errorResponse.getError());

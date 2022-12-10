@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +25,7 @@ import Api.MovieApiClient;
 import Model.Movie;
 
 public class MainActivity extends AppCompatActivity {
+    public final String TAG = "MainActivity";
 
     String movieIds[] = {"tt6443346","tt13433812", "tt21195490", "tt13443470", "tt9114286", "tt0468569"};
 
@@ -92,6 +93,10 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void success(Movie data) {
                     movies.add(data);
+
+                    CoversAdapter adapter = new CoversAdapter(movies);
+                    rvCovers.setAdapter(adapter);
+                    rvCovers.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
                 }
 
                 @Override
@@ -105,10 +110,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-
-        CoversAdapter adapter = new CoversAdapter(movies);
-        rvCovers.setAdapter(adapter);
-        rvCovers.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
     }
 
     private void fetchSearchMovies() {
@@ -124,6 +125,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void error(String message) {
+                Log.d(TAG, message);
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
                 // TODO: App crashing when records are not found even when implementing this method
 /*                if (message != null) {
                     Toast.makeText(MainActivity.this, "No movie was found under the description provided", Toast.LENGTH_SHORT).show();
