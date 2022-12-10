@@ -26,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText edEmail, edUserPassword;
     ProgressBar progressBarLogin;
     FirebaseAuth fAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

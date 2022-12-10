@@ -1,5 +1,6 @@
 package com.example.truemoviefan;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,7 +10,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +33,7 @@ public class CreateReviewActivity extends AppCompatActivity {
     String imdbID;
 
     FirebaseFirestore db;
+    FirebaseAuth fAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +44,7 @@ public class CreateReviewActivity extends AppCompatActivity {
 
     private void initialize() {
         db = FirebaseFirestore.getInstance();
+        fAuth = FirebaseAuth.getInstance();
 
         // Receive imdbID
         imdbID = getIntent().getStringExtra(MovieActivity.IMDB_ID);
@@ -56,25 +65,36 @@ public class CreateReviewActivity extends AppCompatActivity {
 
     private void postReview() {
         String content = tvReviewContent.getText().toString();
+
         // TODO: get information about current user
+        String userId = fAuth.getCurrentUser().getUid();
 
-        Map<String, Object> review = new HashMap<>();
-        review.put("content", content);
-        review.put("imdbId", imdbID);
-        review.put("username", "dasior");
-        review.put("avatar", "https://openseauserdata.com/files/404b572aba61cab8f62d77786f341993.jpg");
+        DocumentReference documentReference = db.collection("user").document(userId);
+        documentReference.addSnapshotListener(this, (value, error) -> {
+            String username = value.getString("username");
+            String avatar = value.getString("photo");
 
-        // Add a new document with a generated ID
-        db.collection("review")
-                .add(review)
-                .addOnSuccessListener(documentReference -> {
-                    Log.d("CreateReviewActivity", "DocumentSnapshot added with ID: " + documentReference.getId());
-                    goBackToMoviePage();
-                })
-                .addOnFailureListener(e -> {
-                    Log.w("CreateReviewActivity", "Error adding document", e);
-                    Toast.makeText(CreateReviewActivity.this, "Error adding document", Toast.LENGTH_SHORT).show();
-                    goBackToMoviePage();
-                });
+            Map<String, Object> review = new HashMap<>();
+            review.put("content", content);
+            review.put("imdbId", imdbID);
+            review.put("username", username);
+            review.put("avatar", avatar);
+
+            // Add a new document with a generated ID
+            db.collection("review")
+                    .add(review)
+                    .addOnSuccessListener(dr -> {
+                        Log.d("CreateReviewActivity", "DocumentSnapshot added with ID: " + dr.getId());
+                        goBackToMoviePage();
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.w("CreateReviewActivity", "Error adding document", e);
+                        Toast.makeText(CreateReviewActivity.this, "Error adding document", Toast.LENGTH_SHORT).show();
+                        goBackToMoviePage();
+                    });
+
+        });
+
+
     }
 }
