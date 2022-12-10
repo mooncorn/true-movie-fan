@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="55dp"
         app:layout_constraintTop_toTopOf="parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:src="@drawable/personaccount" />
@@ -25,13 +25,13 @@
         android:layout_height="wrap_content"
         android:text="User Profile"
         android:textColor="#F7CF1B"
-        android:textSize="40sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="65dp"/>
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="12dp"/>
 
     <TextView
         android:id="@+id/lblUserName"
@@ -39,10 +39,10 @@
         android:layout_height="wrap_content"
         android:text="Username"
         android:textColor="#ffffff"
-        android:textSize="25sp"
+        android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@id/lblUserProfile"
         app:layout_constraintLeft_toRightOf="@id/imEditAccount"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="10dp"/>
 
     <EditText
@@ -63,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Edit"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:background="?android:attr/selectableItemBackground"
         android:textColor="#ffffff"
         android:textAllCaps="false"
@@ -73,53 +73,29 @@
         />
 
     <TextView
-        android:id="@+id/lblFirstName"
+        android:id="@+id/lblFullName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="First Name"
         android:textColor="#ffffff"
-        android:textSize="25sp"
+        android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@id/btnEditIm"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp" />
+        android:layout_marginLeft="30dp"/>
 
     <EditText
-        android:id="@+id/edEditFirstName"
+        android:id="@+id/edEditFullName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="17"
+        android:ems="15"
         android:inputType="textPersonName"
         android:background="@drawable/rounded_edittext"
-        app:layout_constraintTop_toBottomOf="@id/lblFirstName"
+        app:layout_constraintTop_toBottomOf="@id/lblFullName"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="5dp"
-        app:layout_constraintStart_toStartOf="@id/lblFirstName"
+        app:layout_constraintStart_toStartOf="@id/lblFullName"
         android:drawableTint="#AFA9B5" />
 
-    <TextView
-        android:id="@+id/lblLastName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Last Name"
-        android:textColor="#ffffff"
-        android:textSize="25sp"
-        app:layout_constraintTop_toBottomOf="@id/edEditFirstName"
-        app:layout_constraintStart_toStartOf="@id/lblFirstName"
-        android:layout_marginTop="12dp" />
-
-    <EditText
-        android:id="@+id/edEditLastName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="17"
-        android:inputType="textPersonName"
-        android:background="@drawable/rounded_edittext"
-        app:layout_constraintTop_toBottomOf="@id/lblLastName"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="5dp"
-        app:layout_constraintStart_toStartOf="@id/lblFirstName"
-        android:drawableTint="#AFA9B5" />
 
     <TextView
         android:id="@+id/lblEmail"
@@ -127,23 +103,23 @@
         android:layout_height="wrap_content"
         android:text="Email"
         android:textColor="#ffffff"
-        android:textSize="25sp"
-        app:layout_constraintTop_toBottomOf="@id/edEditLastName"
-        app:layout_constraintStart_toStartOf="@id/lblFirstName"
-        android:layout_marginTop="12dp" />
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/edEditFullName"
+        app:layout_constraintStart_toStartOf="@id/lblFullName"
+        android:layout_marginTop="10dp" />
 
     <EditText
         android:id="@+id/edEditUserEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="17"
-        android:inputType="textPersonName"
-        android:background="@drawable/rounded_edittext"
-        app:layout_constraintTop_toBottomOf="@id/lblEmail"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="5dp"
-        app:layout_constraintStart_toStartOf="@id/lblFirstName"
-        android:drawableTint="#AFA9B5"/>
+        android:background="@drawable/rounded_edittext"
+        android:drawableTint="#AFA9B5"
+        android:ems="15"
+        android:inputType="textPersonName"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="@id/lblFullName"
+        app:layout_constraintTop_toBottomOf="@id/lblEmail" />
 
     <TextView
         android:id="@+id/lblPassword"
@@ -151,10 +127,10 @@
         android:layout_height="wrap_content"
         android:text="Password"
         android:textColor="#ffffff"
-        android:textSize="25sp"
+        android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@id/edEditUserEmail"
-        app:layout_constraintStart_toStartOf="@id/lblFirstName"
-        android:layout_marginTop="12dp" />
+        app:layout_constraintStart_toStartOf="@id/lblFullName"
+        android:layout_marginTop="10dp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/hindPass"
@@ -163,13 +139,13 @@
         app:passwordToggleEnabled="true"
         app:layout_constraintTop_toBottomOf="@id/lblPassword"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="@id/lblFirstName">
+        app:layout_constraintStart_toStartOf="@id/lblFullName">
 
         <EditText
             android:id="@+id/edEditPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="17"
+            android:ems="15"
             android:inputType="textPassword"
             android:background="@drawable/rounded_edittext"
             android:drawableTint="#AFA9B5" />
@@ -203,5 +179,14 @@
         android:layout_marginBottom="20dp"
         android:background="#F7CF1B"
         android:textColor="#ffffff"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imLogoEditUserProfile"
+        android:layout_width="60dp"
+        android:layout_height="45dp"
+        android:src="@drawable/logo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

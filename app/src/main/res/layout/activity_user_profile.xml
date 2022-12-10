@@ -8,13 +8,22 @@
     android:background="#141414">
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imLogoUserProfile"
+        android:layout_width="60dp"
+        android:layout_height="45dp"
+        android:src="@drawable/logo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imAccount"
         android:layout_width="110dp"
         android:layout_height="110dp"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="55dp"
         app:layout_constraintTop_toTopOf="parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:src="@drawable/personaccount" />
@@ -23,15 +32,16 @@
         android:id="@+id/lblUserProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:text="User Profile"
         android:textColor="#F7CF1B"
-        android:textSize="40sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="65dp"/>
+        android:layout_marginLeft="12dp"/>
 
     <TextView
         android:id="@+id/lblUserName"
@@ -39,72 +49,49 @@
         android:layout_height="wrap_content"
         android:text="Username"
         android:textColor="#ffffff"
-        android:textSize="25sp"
+        android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@id/lblUserProfile"
         app:layout_constraintLeft_toRightOf="@id/imAccount"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="10dp"/>
 
     <EditText
         android:id="@+id/edUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/rounded_edittext"
+        android:drawableTint="#AFA9B5"
+
         android:ems="8"
         android:inputType="textPersonName"
-        android:background="@drawable/rounded_edittext"
-        app:layout_constraintTop_toBottomOf="@id/lblUserName"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="@id/lblUserName"
-        android:drawableTint="#AFA9B5" />
+        app:layout_constraintTop_toBottomOf="@id/lblUserName" />
 
     <TextView
-        android:id="@+id/lblFirstName"
+        android:id="@+id/lblFullName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="First Name"
+        android:text="Full Name"
         android:textColor="#ffffff"
-        android:textSize="25sp"
+        android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@id/edUserName"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="15dp" />
+        android:layout_marginTop="45dp" />
 
     <EditText
-        android:id="@+id/edFirstName"
+        android:id="@+id/edFullName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="17"
+        android:ems="15"
         android:inputType="textPersonName"
         android:background="@drawable/rounded_edittext"
-        app:layout_constraintTop_toBottomOf="@id/lblFirstName"
+        app:layout_constraintTop_toBottomOf="@id/lblFullName"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="5dp"
-        app:layout_constraintStart_toStartOf="@id/lblFirstName"
-        android:drawableTint="#AFA9B5" />
-
-    <TextView
-        android:id="@+id/lblLastName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Last Name"
-        android:textColor="#ffffff"
-        android:textSize="25sp"
-        app:layout_constraintTop_toBottomOf="@id/edFirstName"
-        app:layout_constraintStart_toStartOf="@id/lblFirstName"
-        android:layout_marginTop="12dp" />
-
-    <EditText
-        android:id="@+id/edLastName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="17"
-        android:inputType="textPersonName"
-        android:background="@drawable/rounded_edittext"
-        app:layout_constraintTop_toBottomOf="@id/lblLastName"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="5dp"
-        app:layout_constraintStart_toStartOf="@id/lblFirstName"
+        app:layout_constraintStart_toStartOf="@id/lblFullName"
         android:drawableTint="#AFA9B5" />
 
     <TextView
@@ -113,22 +100,22 @@
         android:layout_height="wrap_content"
         android:text="Email"
         android:textColor="#ffffff"
-        android:textSize="25sp"
-        app:layout_constraintTop_toBottomOf="@id/edLastName"
-        app:layout_constraintStart_toStartOf="@id/lblFirstName"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/edFullName"
+        app:layout_constraintStart_toStartOf="@id/lblFullName"
         android:layout_marginTop="12dp" />
 
     <EditText
         android:id="@+id/edUserEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="17"
+        android:ems="15"
         android:inputType="textPersonName"
         android:background="@drawable/rounded_edittext"
         app:layout_constraintTop_toBottomOf="@id/lblEmail"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="5dp"
-        app:layout_constraintStart_toStartOf="@id/lblFirstName"
+        app:layout_constraintStart_toStartOf="@id/lblFullName"
         android:drawableTint="#AFA9B5"/>
 
     <TextView
@@ -137,9 +124,9 @@
         android:layout_height="wrap_content"
         android:text="Password"
         android:textColor="#ffffff"
-        android:textSize="25sp"
+        android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@id/edUserEmail"
-        app:layout_constraintStart_toStartOf="@id/lblFirstName"
+        app:layout_constraintStart_toStartOf="@id/lblFullName"
         android:layout_marginTop="12dp" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -149,13 +136,13 @@
         app:passwordToggleEnabled="true"
         app:layout_constraintTop_toBottomOf="@id/lblPassword"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="@id/lblFirstName">
+        app:layout_constraintStart_toStartOf="@id/lblFullName">
 
         <EditText
             android:id="@+id/edPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="17"
+            android:ems="15"
             android:inputType="textPassword"
             android:background="@drawable/rounded_edittext"
             android:drawableTint="#AFA9B5" />
@@ -174,7 +161,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/hindPass"
         android:layout_marginBottom="20dp"
-        android:background="#EC3E33"
+        android:background="#F7CF1B"
         android:textColor="#ffffff"/>
 
     <Button
@@ -189,7 +176,8 @@
         app:layout_constraintEnd_toEndOf="@id/hindPass"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
-        android:background="#F7CF1B"
+        android:background="#EC3E33"
         android:textColor="#ffffff"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

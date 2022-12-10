@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,9 +79,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         fetchFeedMovies();
-
-        //logout
-        //FirebaseAuth.getInstance().signOut();
     }
 
     private void fetchFeedMovies() {

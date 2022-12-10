@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,6 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText edUserNameSecondAct, edEmailSecondAct, edPasswordSecondAct, edConfirmPasswordSecondAct;
     Button btnSignUp, btnGobackToLogin;
     ImageView imLogoSecondAct;
+    ProgressBar progressBarRegister;
     FirebaseAuth fAuth;
     String userId;
     FirebaseFirestore db;
@@ -49,6 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnSignUp = findViewById(R.id.btnSignUp);
         btnGobackToLogin = findViewById(R.id.btnGobackToLogin);
         imLogoSecondAct = findViewById(R.id.imLogoSecondAct);
+        progressBarRegister = findViewById(R.id.progressBarRegister);
 
         //Firebase
         fAuth = FirebaseAuth.getInstance();
@@ -63,7 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         imLogoSecondAct.setOnClickListener(view -> {
-            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            startActivity(new Intent(this,MainActivity.class));
         });
     }
 
@@ -109,14 +113,16 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         if(confirmPassw.equals(passw) == false){
-            Toast.makeText(this, "Password and Confirm Password do not match, please try again",
+            Toast.makeText(this, "Password does not match, please try again!",
                     Toast.LENGTH_LONG).show();
             edConfirmPasswordSecondAct.setText(null);
             edConfirmPasswordSecondAct.requestFocus();
             return;
         }
 
-        //Register a new user in Firebase
+        progressBarRegister.setVisibility(View.VISIBLE);
+
+        // Register a new user in Firebase
         fAuth.createUserWithEmailAndPassword(email,passw).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -128,11 +134,10 @@ public class RegisterActivity extends AppCompatActivity {
 
                     Map<String, Object> newUser = new HashMap<>();
                     newUser.put("username",userName);
-                    newUser.put("firstname", userName);
-                    newUser.put("lastname", "");
+                    newUser.put("fullname", userName);
                     newUser.put("email", email);
                     newUser.put("password", passw);
-                    newUser.put("photo", "");
+                    newUser.put("photo", "https://www.nicepng.com/png/detail/18-181114_smiley-smile-smiley-faces-emojis-pb-logo-geocaching.png");
 
                     // Add a new document with the UUID that was generated with fAuth 
                     documentReference.set(newUser);
@@ -142,6 +147,7 @@ public class RegisterActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(RegisterActivity.this,"Error! " + task.getException().getMessage(),
                             Toast.LENGTH_LONG).show();
+                    progressBarRegister.setVisibility(View.GONE);
                 }
             }
         });
