@@ -1,5 +1,6 @@
 package com.example.truemoviefan;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +19,12 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseAuth fAuth;
 
+    FirebaseFirestore db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +66,22 @@ public class MainActivity extends AppCompatActivity {
         ivUser = findViewById(R.id.ivUser);
 
         fAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+
+        if(fAuth.getCurrentUser() != null){
+            DocumentReference documentReference = db.collection("user").document(fAuth.getCurrentUser().getUid());
+            documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                    //Fetching user's photo
+                    String img_url = value.getString("photo");
+                    Picasso.with(MainActivity.this)
+                            .load(img_url)
+                            .into(ivUser);
+                }
+            });
+        }
 
         tvSearchBar.setOnClickListener(view -> {
             fetchSearchMovies();
