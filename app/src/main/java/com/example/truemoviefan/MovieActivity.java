@@ -8,11 +8,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.squareup.picasso.Picasso;
@@ -38,6 +40,7 @@ public class MovieActivity extends AppCompatActivity {
     String imdbId;
 
     FirebaseFirestore db;
+    FirebaseAuth fAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class MovieActivity extends AppCompatActivity {
 
     private void initialize() {
         db = FirebaseFirestore.getInstance();
+        fAuth = FirebaseAuth.getInstance();
 
         txtTitle = findViewById(R.id.txtTitle);
         txtPlot = findViewById(R.id.txtPlot);
@@ -59,7 +63,6 @@ public class MovieActivity extends AppCompatActivity {
         btnAddToWatchList.setOnClickListener(view -> addMovieToWatchList());
 
         ivPoster.setOnClickListener(view -> {
-            // TODO: Finish implementing the return to main activity
             Intent i = new Intent(MovieActivity.this, MainActivity.class);
             startActivity(i);
         });
@@ -111,6 +114,12 @@ public class MovieActivity extends AppCompatActivity {
                         Log.w("TAG", "Error getting documents.", task.getException());
                     }
                 });
+
+
+        if (fAuth.getCurrentUser() == null) {
+            btnAddToWatchList.setVisibility(View.INVISIBLE);
+            btnPostReview.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void addMovieToWatchList() {

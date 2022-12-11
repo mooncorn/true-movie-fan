@@ -150,10 +150,6 @@ public class MainActivity extends AppCompatActivity {
             public void error(String message) {
                 Log.d(TAG, message);
                 Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
-                // TODO: App crashing when records are not found even when implementing this method
-/*                if (message != null) {
-                    Toast.makeText(MainActivity.this, "No movie was found under the description provided", Toast.LENGTH_SHORT).show();
-                }*/
             }
         });
     }
