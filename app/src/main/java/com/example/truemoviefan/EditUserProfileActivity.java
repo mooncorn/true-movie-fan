@@ -54,11 +54,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
 
     //To upload the image file into Firebase database
     FirebaseStorage storage;
-    StorageReference storageReference,sRef;
-
-    ActivityResultLauncher actRes;
-    Uri filepath;
-    ProgressDialog prDialog;
+    StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,48 +102,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
             }
         });
 
-        actRes = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        // Display the selected picture from the device
-                        if (result.getResultCode() == RESULT_OK && result.getData() != null){
 
-                            filepath = result.getData().getData();
-                            try{
-
-                                Bitmap bitmap = MediaStore.Images.Media.getBitmap
-                                        (getContentResolver(), filepath);
-
-                                imEditAccount.setImageBitmap(bitmap);
-
-
-                            }catch (Exception e) {
-
-                                Toast.makeText(EditUserProfileActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                            }
-
-                        }
-                    }
-                }
-        );
-
-
-        btnEditIm.setOnClickListener(view -> {
-
-            // Browsing a photo
-            Intent intent = new Intent();
-
-            // find an image on a device
-            intent.setType("image/*");
-
-            //Take a photo
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            actRes.launch(Intent.createChooser(intent, "Please, select a photo"));
-
-            uploadPhoto();
-        });
 
         btnSave.setOnClickListener(view -> {
             if(edEditUserName.getText().toString().isEmpty() || edEditFullName.getText().toString().isEmpty()
@@ -172,7 +127,8 @@ public class EditUserProfileActivity extends AppCompatActivity {
                             updateUser.put("fullname", edEditFullName.getText().toString());
                             updateUser.put("email", email);
                             updateUser.put("password", passw);
-                            //updateUser.put("photo", url);
+
+                            // Update the current user's information
                             docReference.update(updateUser).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
@@ -200,52 +156,58 @@ public class EditUserProfileActivity extends AppCompatActivity {
         imLogoEditUserProfile.setOnClickListener(view -> {
             startActivity(new Intent(this,MainActivity.class));
         });
+
+        btnEditIm.setOnClickListener(view -> {
+
+            //OpenGallery
+            Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(openGalleryIntent,1000);
+        });
     }
 
-    private void uploadPhoto() {
-        if(filepath != null){
-            prDialog = new ProgressDialog(this);
-            prDialog.setTitle("Uploading the photo in progress...");
-            prDialog.show();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1000){
+            if(resultCode == Activity.RESULT_OK){
+                Uri imageUri = data.getData();
+                //imEditAccount.setImageURI(imageUri);
 
-            //Store the image in store of FireBase (UUID -> create a random image name)
-            sRef = storageReference.child("image/" + UUID.randomUUID());
-
-            //Upload the file then show its status (Success or Failure)
-            sRef.putFile(filepath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    prDialog.dismiss();
-
-                    Toast.makeText(EditUserProfileActivity.this, "The photo has been uploaded successfully!...",
-                            Toast.LENGTH_LONG).show();
-
-                    sRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Uri> task) {
-                            String url = task.getResult().toString();
-                            DocumentReference docReference = db.collection("user").document(user.getUid());
-                            Map<String, Object> updateUser = new HashMap<>();
-                            updateUser.put("photo", "https://www.nicepng.com/png/detail/6-65582_white-small-dog-small-dog-png.png");
-                            //updateUser.put("photo", "https://www.nicepng.com/png/detail/76-762284_boss-baby-junior-novelization-boss-baby-movie.png");
-                            //updateUser.put("photo", url);
-                            docReference.update(updateUser).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(EditUserProfileActivity.this, "Profile Photo updated", Toast.LENGTH_LONG).show();
-                                    startActivity(new Intent(getApplicationContext(),EditUserProfileActivity.class));
-                                    finish();
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(EditUserProfileActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                                }
-                            });
-                        }
-                   });
-                }
-            });
+                uploadImageToFirebase(imageUri);
+            }
         }
+    }
+
+    private void uploadImageToFirebase(Uri imageUri) {
+        // Upload image to Firebase storage
+        StorageReference fileRef = storageReference.child("users/" + userId + "Profile.jpg");
+        fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                //Toast.makeText(EditUserProfileActivity.this, "Image Uploaded", Toast.LENGTH_LONG).show();
+                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Picasso.with(EditUserProfileActivity.this).load(uri).into(imEditAccount);
+                        Map<String, Object> updateUser = new HashMap<>();
+                        updateUser.put("photo", uri.toString());
+
+                        // Update the current user's photo
+                        user = FirebaseAuth.getInstance().getCurrentUser();
+                        db.collection("user").document(user.getUid()).update(updateUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(EditUserProfileActivity.this,"Upload Successfully: " + uri.toString(),Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(EditUserProfileActivity.this, "Failed", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

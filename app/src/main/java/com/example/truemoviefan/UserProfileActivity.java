@@ -76,11 +76,6 @@ public class UserProfileActivity extends AppCompatActivity {
 
         btnEditUser.setOnClickListener(view -> {
             Intent i = new Intent(this,EditUserProfileActivity.class);
-            /*i.putExtra("username", edUserName.getText().toString());
-            i.putExtra("fullname", edFullName.getText().toString());
-            i.putExtra("email", edUserEmail.getText().toString());
-            i.putExtra("password", edPassword.getText().toString());
-            i.putExtra("photo", )*/
             startActivity(i);
         });
 
