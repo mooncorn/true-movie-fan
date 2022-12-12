@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp"
-    tools:context=".CreateReviewActivity">
+    tools:context=".CreateReviewActivity"
+    android:background="@color/black">
 
     <TextView
         android:id="@+id/tvPostReview"
@@ -15,7 +16,8 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="#F5C75D"/>
 
     <EditText
         android:id="@+id/etReviewContent"
@@ -28,7 +30,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvPostReview"
-        android:autofillHints="" />
+        android:autofillHints=""
+        android:textColor="@color/white"
+        android:backgroundTint="@color/white"/>
 
     <Button
         android:id="@+id/btnCancel"
@@ -37,7 +41,9 @@
         android:layout_marginTop="16dp"
         android:text="Cancel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etReviewContent" />
+        app:layout_constraintTop_toBottomOf="@+id/etReviewContent"
+        android:textStyle="bold"
+        android:background="#F5C75D"/>
 
     <Button
         android:id="@+id/btnPost"
@@ -46,6 +52,8 @@
         android:layout_marginTop="16dp"
         android:text="Post"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etReviewContent" />
+        app:layout_constraintTop_toBottomOf="@+id/etReviewContent"
+        android:textStyle="bold"
+        android:background="#F5C75D"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

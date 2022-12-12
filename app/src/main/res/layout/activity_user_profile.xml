@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="User Profile"
-        android:textColor="#F7CF1B"
+        android:textColor="#F5C75D"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -161,8 +161,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/hindPass"
         android:layout_marginBottom="20dp"
-        android:background="#F7CF1B"
-        android:textColor="#ffffff"/>
+        android:background="#F5C75D"
+        android:textColor="@color/black"/>
 
     <Button
         android:id="@+id/btnLogout"
@@ -177,7 +177,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
         android:background="#EC3E33"
-        android:textColor="#ffffff"/>
+        android:textColor="@color/black"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
